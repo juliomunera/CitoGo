@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Home</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content id="container">
+    <ion-slides pager="true">
+
+        <ion-slide>
+            <img src="images/slide1.png" />
+        </ion-slide>
+
+        <ion-slide>
+            <img src="images/slide2.png" />
+        </ion-slide>
+
+        <ion-slide>
+            <img src="images/slide3.png" />
+        </ion-slide>
+
+        <ion-slide>
+            <ion-row>
+                <ion-col>
+                    <img src="images/slide4.png" />
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <button ion-button color="light" (click)="goToHome()">Start Using My App</button>
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+
+    </ion-slides>
+</ion-content>
+
+<!-- <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">{{ folder }}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <div id="container">
+        <strong class="capitalize">{{ folder }}</strong>
+        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    </div>
+</ion-content> -->
