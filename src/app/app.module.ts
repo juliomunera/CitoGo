@@ -9,6 +9,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+// export JAVA_HOME=$(/usr/libexec/java_home)
+// echo $JAVA_HOME    
+
+// https://help.github.com/es/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
