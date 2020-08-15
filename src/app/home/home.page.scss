@@ -1,61 +1,37 @@
-ion-menu-button {
-    color: var(--ion-color-primary);
+ion-label {
+    color: #dadada!important;
+    font-weight: 300;
+    font-size: 1rem!important;
 }
 
-ion-slide {
-    height: 100vh;
-    flex-direction: column;
-    // text-align: justify;
-    // padding: 50 50 50 50 !important;
-    // margin: 50 50 50 50 !important;
+.action-sheet-group {
+    background: #e5e5e5;
 }
 
-.step-one {
-    background-color: var(--ion-color-primary);
-    color: var(--ion-color-primary-contrast);
+.my-custom-class .action-sheet-group {
+    background: #e5e5e5;
 }
 
-.step-two {
-    background-color: var(--ion-color-success);
-    color: var(--ion-color-primary-contrast);
+.align-right {
+    margin-left: auto;
+    display: block;
 }
 
-.step-three {
-    background-color: var(--ion-color-dark);
-    color: var(--ion-color-primary-contrast);
+.color-header {
+    color: white;
+    font-size: 18px;
 }
 
-.description-label1 {
-    color: #727171;
-    width: 80%;
-    text-align: justify;
+.item {
+    color: white;
 }
 
-.custom-card {
-    width: 88%;
-    background-color: #2e2c2c;
+.action-sheet-group {
+    background-color: #fff;
 }
 
-.color-label {
-    color: #888585;
-}
-
-.color-input {
-    background-color: #6d6a6a;
-    color: #f2f2f2;
-    font-size: 24px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.custom-header {
-    background-color: #504c4c;
-}
-
-.header-text1 {
-    color: #f2f2f2;
-}
-
-.phone-text1 {
-    text-align: left;
-    color: #474444;
+.token-class {
+    font-size: small;
+    color: #cecece;
+    height: 30px;
 }

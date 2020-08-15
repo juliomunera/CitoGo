@@ -1,47 +1,62 @@
 <ion-header [translucent]="true">
-
+    <ion-toolbar>
+        <ion-title class="color-header">celcom - activación</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content [fullscreen]="true"> -->
+<ion-content class="ion-padding">
 
-<ion-content>
-    <ion-slides pager="true">
+    <ion-list>
+        <ion-item>
+            <div class="align-right">
+                <img src="../../assets/images/citomovil.png" width="60px" height="60px" />
+                <br /><br />
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Tipo de acción</ion-label>
+            <ion-select (ionChange)="clearTokenField()" interface="action-sheet" cancelText="Cancelar" [(ngModel)]="actionType">
+                <ion-select-option value="4">Insertar</ion-select-option>
+                <ion-select-option value="5">Actualizar</ion-select-option>
+                <ion-select-option value="6">Eliminar</ion-select-option>
+                <ion-select-option value="7">Desbloqueo</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Número del residente</ion-label>
+            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceNumber"></ion-input>
+        </ion-item>
 
-        <ion-slide class="step-three">
-            <img src="../../assets/images/citomovil.png" />
-            <h2>Citomóvil - Go</h2>
-            <div class="description-label1">A través de esta app le permitirá la habilitación de nuevos citófonos móviles de forma remota.</div>
-            <br />
-            <ion-button>Continuar</ion-button>
-        </ion-slide>
+        <ion-item>
+            <ion-label position="floating">Ubicación</ion-label>
+            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="6" [(ngModel)]="location"></ion-input>
+        </ion-item>
 
-        <ion-slide class="step-three">
-            <ion-card class="custom-card">
-                <img src="../../assets/images/citomovil.png" width="25px" height="25px" />
-                <ion-card-header>
-                    <ion-card-title class="header-text1">Activación</ion-card-title>
-                </ion-card-header>
-                <ion-card-content class="phone-text1">
-                    <div>
-                        <ion-label class="color-label" position="floating">Teléfono Maestro</ion-label>
-                    </div>
-                    <div>
-                        <ion-input class="color-input" required type="tel" maxlength="10"></ion-input>
-                    </div>
-                    <br />
-                    <div>
-                        <ion-label class="color-label" position="floating">Citófono</ion-label>
-                    </div>
-                    <div>
-                        <ion-input class="color-input" required type="tel" maxlength="10"></ion-input>
-                    </div>
+        <ion-item>
+            <ion-label position="floating">Alias</ion-label>
+            <ion-input (ionChange)="clearTokenField()" type="text" class="floating" maxlength="24" [(ngModel)]="aliasName"></ion-input>
+        </ion-item>
 
-                </ion-card-content>
-            </ion-card>
+        <ion-item>
+            <ion-label position="floating">Número del emisor</ion-label>
+            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceFrom"></ion-input>
+        </ion-item>
 
-            <br />
-            <ion-button>Registrar</ion-button>
-        </ion-slide>
-    </ion-slides>
+        <ion-item>
+            <ion-label position="floating">Caducidad</ion-label>
+            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="4" class="item" [(ngModel)]="expiration"></ion-input>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-button (click)="continue()" expand="block">Guardar</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-textarea rows="5" class="token-class" [(ngModel)]="token" readonly></ion-textarea>
 
 </ion-content>
