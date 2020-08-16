@@ -15,9 +15,8 @@
         </ion-item>
         <ion-item>
             <ion-label>Tipo de acción</ion-label>
-            <ion-select (ionChange)="clearTokenField()" interface="action-sheet" cancelText="Cancelar" [(ngModel)]="actionType">
+            <ion-select (ionChange)="changeAction()" interface="action-sheet" cancelText="Cancelar" [(ngModel)]="actionType">
                 <ion-select-option value="4">Insertar</ion-select-option>
-                <ion-select-option value="5">Actualizar</ion-select-option>
                 <ion-select-option value="6">Eliminar</ion-select-option>
                 <ion-select-option value="7">Desbloqueo</ion-select-option>
             </ion-select>
@@ -29,17 +28,17 @@
 
         <ion-item>
             <ion-label position="floating">Ubicación</ion-label>
-            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="6" [(ngModel)]="location"></ion-input>
+            <ion-input disabled="{{disabled_location}}" (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="6" [(ngModel)]="location"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label position="floating">Alias</ion-label>
-            <ion-input (ionChange)="clearTokenField()" type="text" class="floating" maxlength="24" [(ngModel)]="aliasName"></ion-input>
+            <ion-input disabled="{{disabled_aliasName}}" (ionChange)="clearTokenField()" type="text" class="floating" maxlength="24" [(ngModel)]="aliasName"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label position="floating">Número del emisor</ion-label>
-            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceFrom"></ion-input>
+            <ion-input disabled="{{disabled_deviceFrom}}" (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceFrom"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -52,7 +51,11 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <ion-button (click)="continue()" expand="block">Guardar</ion-button>
+                <ion-button expand="block" (click)="continue()">Guardar</ion-button>
+            </ion-col>
+
+            <ion-col>
+                <ion-button expand="block" (click)="clear()">Limpiar</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

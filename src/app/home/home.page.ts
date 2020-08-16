@@ -5,6 +5,7 @@ import { ToolService } from '../helper/tools';
 import { HttpClient } from '@angular/common/http';
 import { RestapiService } from '../helper/restapi';
 import { LoadingService } from '../helper/loading';
+import { ConsoleReporter } from 'jasmine';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,10 @@ export class HomePage implements OnInit {
   public token : string = '';
   public location : string = '';
   private _token : string = '';
+
+  public disabled_location : boolean = false;
+  public disabled_aliasName : boolean = false;
+  public disabled_deviceFrom : boolean = false;
 
   private toolService : ToolService;
 
@@ -53,12 +58,12 @@ export class HomePage implements OnInit {
     }
 
     if (this.actionType !== '7') {
-      if(this.location===''){
+      if(this.location==='' && !this.disabled_location){
         this.presentAlert('Debe ingresar la ubicación del residente');
         return;
       }
 
-      if(this.aliasName===''){
+      if(this.aliasName==='' && !this.disabled_aliasName){
         this.presentAlert('Debe ingresar el alias del residente');
         return;
       }
@@ -70,7 +75,7 @@ export class HomePage implements OnInit {
       return;
     }
 
-    if(!parseInt(this.deviceFrom)){
+    if(!parseInt(this.deviceFrom) && !this.disabled_deviceFrom){
       this.presentAlert('El número del emisor debe ser numérico');
       return;
     }
@@ -91,7 +96,7 @@ export class HomePage implements OnInit {
     }
 
     this.toolService = new ToolService();
-    let code = Math.floor(Math.random() * (99999 - 1000 + 1)) + 1000;
+    let code = this.toolService.random();
 
     this._token = this.toolService.getToken(
                       this.deviceNumber, this.actionType, this.aliasName, this.location, 
@@ -103,6 +108,11 @@ export class HomePage implements OnInit {
   clearTokenField()
   {
     this.token = '';
+  }
+
+  changeAction(){
+    this.clearTokenField();
+    this.enabledOption(this.actionType);
   }
 
   async sendCode(code){
@@ -148,6 +158,54 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
+  enabledOption(action){
+    console.log('Action: ');
+    console.log(action);
+
+    switch (action) {
+      case '7':
+        this.disabled_deviceFrom = false;
+        this.disabled_aliasName = true;
+        this.disabled_location = true;
+
+        this.aliasName = '';
+        this.location = '';
+        break;
+
+      case '6':
+        
+        this.disabled_deviceFrom = true;
+        this.disabled_aliasName = true;
+        this.disabled_location = true;
+
+        this.aliasName = '';
+        this.location = '';
+        this.deviceFrom = '';
+        break;        
+    
+      default:
+        this.disabled_deviceFrom = false;
+        this.disabled_aliasName = false;
+        this.disabled_location = false;
+
+        break;
+    }
+  }
+
+  clear(){
+    this.deviceNumber = '';
+    this.actionType = '';
+    this.aliasName = '';
+    this.deviceFrom = '';
+    this.expiration = '3600';
+    this.token = '';
+    this.location = '';
+    this._token = '';
+
+    this.disabled_location = false;
+    this.disabled_aliasName = false;
+    this.disabled_deviceFrom = false;
+  }
 
 
 }

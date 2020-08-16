@@ -54,4 +54,10 @@ export class ToolService {
     return result;
   }
 
+  random() {
+    let a = Math.floor(100000 + Math.random() * 900000).toString();   
+    a = a.substring(0,4);
+    return a;
+  }
+
 }
