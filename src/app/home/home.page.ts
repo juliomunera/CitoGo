@@ -5,7 +5,6 @@ import { ToolService } from '../helper/tools';
 import { HttpClient } from '@angular/common/http';
 import { RestapiService } from '../helper/restapi';
 import { LoadingService } from '../helper/loading';
-import { ConsoleReporter } from 'jasmine';
 
 @Component({
   selector: 'app-home',
@@ -173,7 +172,7 @@ export class HomePage implements OnInit {
         break;
 
       case '6':
-        
+
         this.disabled_deviceFrom = true;
         this.disabled_aliasName = true;
         this.disabled_location = true;
