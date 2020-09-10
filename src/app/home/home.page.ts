@@ -21,10 +21,12 @@ export class HomePage implements OnInit {
   public token : string = '';
   public location : string = '';
   private _token : string = '';
+  private doormanNumber : string = '';
 
   public disabled_location : boolean = false;
   public disabled_aliasName : boolean = false;
-  public disabled_deviceFrom : boolean = false;
+  public disabled_deviceNumber : boolean = false;
+  public disabled_expiration : boolean = false;
 
   private toolService : ToolService;
 
@@ -40,18 +42,28 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
-  async continue(){
+  continue(){
     if(this.actionType===''){
       this.presentAlert('Debe seleccionar un tipo de acción');
       return;
     }
 
-    if(this.deviceNumber===''){
+    if(this.doormanNumber===''){
+      this.presentAlert('Debe ingresar el número del portero o dispositivo');
+      return;
+    }
+
+    if(!parseInt(this.doormanNumber)){
+      this.presentAlert('El número del portero debe ser numérico');
+      return;
+    }
+
+    if(this.deviceNumber==='' && !this.disabled_deviceNumber){
       this.presentAlert('Debe ingresar el número del residente');
       return;
     }
 
-    if(!parseInt(this.deviceNumber)){
+    if(!parseInt(this.deviceNumber) && !this.disabled_deviceNumber){
       this.presentAlert('El número del residente debe ser numérico');
       return;
     }
@@ -74,7 +86,7 @@ export class HomePage implements OnInit {
       return;
     }
 
-    if(!parseInt(this.deviceFrom) && !this.disabled_deviceFrom){
+    if(!parseInt(this.deviceFrom)){
       this.presentAlert('El número del emisor debe ser numérico');
       return;
     }
@@ -89,7 +101,7 @@ export class HomePage implements OnInit {
       return;
     }
 
-    if(parseInt(this.expiration) < 3600){
+    if(parseInt(this.expiration) < 3600 && !this.disabled_expiration){
       this.presentAlert('El valor de la caducidad del token debe mayor a 3600 segundos');
       return;
     }
@@ -97,9 +109,10 @@ export class HomePage implements OnInit {
     this.toolService = new ToolService();
     let code = this.toolService.random();
 
-    this._token = this.toolService.getToken(
+    
+    this._token = this.toolService.getToken(this.doormanNumber,
                       this.deviceNumber, this.actionType, this.aliasName, this.location, 
-                      this.deviceFrom, this.expiration, code);
+                      this.expiration, code);
     
     this.sendCode(code);
   }
@@ -116,35 +129,31 @@ export class HomePage implements OnInit {
 
   async sendCode(code){
 
-    this.loadingService.present({
-      message: 'Conectando al servidor...',
-      duration: 1000
-    });
+   await this.loadingService.showLoading('ifOfLoading')
 
     let obj = {
-      numeroPortero : this.deviceFrom,
-      numeroOrigen : this.deviceNumber,
+      numeroPortero : this.doormanNumber,
+      numeroOrigen : this.deviceFrom, 
       hash : this._token,
       accion : this.actionType,
       codigo : code
     };
 
     console.log(obj);
-    
+
     this.rest.generateCodeSms(obj).then(response => {
-      this.loadingService.dismiss();
+      this.loadingService.dismissLoader('ifOfLoading')
       this.token = this._token;
 
       console.log(this.token);
     })
     .catch(error=>{
 
-      this.loadingService.dismiss();
+      this.loadingService.dismissLoader('ifOfLoading')
       this.presentAlert('Error al generar el código SMS.')
       return;
     });
 
-    this.loadingService.dismiss();
   }
 
   async presentAlert(description: any) {
@@ -163,29 +172,33 @@ export class HomePage implements OnInit {
 
     switch (action) {
       case '7':
-        this.disabled_deviceFrom = false;
+        this.disabled_deviceNumber = true;
         this.disabled_aliasName = true;
         this.disabled_location = true;
+        this.disabled_expiration = false;
 
         this.aliasName = '';
         this.location = '';
+        this.deviceNumber = '';
         break;
 
       case '6':
 
-        this.disabled_deviceFrom = true;
         this.disabled_aliasName = true;
         this.disabled_location = true;
+        this.disabled_expiration = true;
+        this.disabled_deviceNumber = false;
 
         this.aliasName = '';
         this.location = '';
-        this.deviceFrom = '';
+        this.deviceNumber = '';
         break;        
     
       default:
-        this.disabled_deviceFrom = false;
         this.disabled_aliasName = false;
         this.disabled_location = false;
+        this.disabled_expiration = true;
+        this.disabled_deviceNumber = false;
 
         break;
     }
@@ -193,6 +206,7 @@ export class HomePage implements OnInit {
 
   clear(){
     this.deviceNumber = '';
+    this.doormanNumber = '';
     this.actionType = '';
     this.aliasName = '';
     this.deviceFrom = '';
@@ -203,7 +217,8 @@ export class HomePage implements OnInit {
 
     this.disabled_location = false;
     this.disabled_aliasName = false;
-    this.disabled_deviceFrom = false;
+    this.disabled_expiration = false;
+    this.disabled_deviceNumber = false;
   }
 
 

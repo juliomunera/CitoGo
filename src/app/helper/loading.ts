@@ -5,22 +5,38 @@ import { LoadingController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class LoadingService {
+
+  loader:HTMLIonLoadingElement;
+
   constructor(public loadingController: LoadingController) {
   }
 
   async present(options: object) {
-    await this.dismiss();
 
-    await this.loadingController
-      .create(options)
-      .then(res => {
-        res.present();
-      });
+    this.loader =  await this.loadingController.create(options);
+    await this.loader.present();
   }
 
   async dismiss() {
-    while (await this.loadingController.getTop() !== undefined) {
-      await this.loadingController.dismiss();
-    }
+    await this.loader.dismiss()
+    .then(()=>{
+      this.loader = null;
+    })
+    .catch(e => console.log(e));
   }
+
+  async showLoading(loadingId: string, loadingMessage: string = 'Cargando...') {
+    const loading = await this.loadingController.create({
+      id: loadingId,
+      message: loadingMessage,
+      spinner: 'circles'
+    });
+    return await loading.present();
+}
+
+  async dismissLoader(loadingId: string) {
+      return await this.loadingController.dismiss(null, null, loadingId).then(() => console.log('loading dismissed'));
+  }
+
+
 }

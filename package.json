@@ -1,5 +1,5 @@
 {
-    "name": "CitoGo",
+    "name": "celcomadmon",
     "version": "1.0.1",
     "author": "Inventor",
     "homepage": "www.citimovil.com",
@@ -58,7 +58,7 @@
         "tslint": "~5.15.0",
         "typescript": "~3.4.3"
     },
-    "description": "An Ionic project",
+    "description": "Celcom admon",
     "cordova": {
         "plugins": {
             "cordova-plugin-whitelist": {},

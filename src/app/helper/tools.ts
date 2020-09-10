@@ -22,17 +22,21 @@ export class ToolService {
     return [year, month, day].join('-');
   }
 
-  getToken(deviceNumber, actionType, aliasName, location, deviceFrom, expiration, code){
+  getToken(doormanNumber, deviceNumber, actionType, aliasName, location, expiration, code){
     let result = '';
 
     switch(actionType) { 
         case '7': { 
-            result = actionType + '|' + deviceNumber + '|' + code + '|' + expiration;
-           break; 
+            result = actionType + '|' + doormanNumber + '|' + code + '|' + expiration;
+            break; 
+        } 
+        case '6': { 
+            result = actionType + '|' + doormanNumber + '|' + deviceNumber;
+            break;
         } 
         default: { 
             result = actionType + '|' + location + '|' + deviceNumber + '|' + aliasName;
-           break; 
+            break; 
         } 
      }
 

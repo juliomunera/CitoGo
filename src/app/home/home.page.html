@@ -22,8 +22,12 @@
             </ion-select>
         </ion-item>
         <ion-item>
+            <ion-label position="floating">Número del portero</ion-label>
+            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="doormanNumber"></ion-input>
+        </ion-item>
+        <ion-item>
             <ion-label position="floating">Número del residente</ion-label>
-            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceNumber"></ion-input>
+            <ion-input disabled="{{disabled_deviceNumber}}" (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceNumber"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -38,12 +42,12 @@
 
         <ion-item>
             <ion-label position="floating">Número del emisor</ion-label>
-            <ion-input disabled="{{disabled_deviceFrom}}" (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceFrom"></ion-input>
+            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="10" class="item" [(ngModel)]="deviceFrom"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label position="floating">Caducidad</ion-label>
-            <ion-input (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="4" class="item" [(ngModel)]="expiration"></ion-input>
+            <ion-input disabled="{{disabled_expiration}}" (ionChange)="clearTokenField()" type="tel" class="floating" maxlength="4" class="item" [(ngModel)]="expiration"></ion-input>
         </ion-item>
 
     </ion-list>
